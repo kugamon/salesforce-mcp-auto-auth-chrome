@@ -265,7 +265,7 @@ Every API call. The `sid` from Chrome is read fresh each time — Salesforce ses
 
 **`HTTP 401` from Salesforce on every call**: The `sid` cookie you have is valid for the UI session but the org may have "Lock sessions to the IP address from which they originated" enabled with a strict policy. If so, switch that org to OAuth-based auth via the standard `mcp-salesforce-connector` config.
 
-**Want to use Firefox/Safari/Brave/Arc instead of Chrome**: Not yet — today the wrapper only checks Chrome's cookie store. Adding other browsers is a small change to `auth.py` (pycookiecheat supports several). PRs welcome.
+**Want to use Firefox/Safari/Brave/Arc instead of Chrome**: Not yet — today the wrapper only checks Chrome's cookie store. Adding other browsers is a small change to `auth.py` (pycookiecheat supports several); open an issue if you need one.
 
 **Cookie reads work in Chrome standalone but the MCP can't read them**: The MCP process needs permission to access Keychain. If you ever click "Don't Allow" on the Keychain prompt by accident, open Keychain Access → search for "Chrome Safe Storage" → right-click → "Get Info" → "Access Control" → add the `uv` executable, or just delete the entry and let Chrome recreate it.
 
@@ -277,3 +277,13 @@ Every API call. The `sid` from Chrome is read fresh each time — Salesforce ses
 
 - **v0.1.1** — pin `mcp<2.0` at install time. The `mcp` Python SDK shipped 2.0.0 on 2026-07-28, removing the low-level `Server.list_tools()` decorator that `mcp-salesforce-connector` 0.1.15 relies on. Before this pin, every fresh `uvx` resolution crashed at import with `AttributeError: 'Server' object has no attribute 'list_tools'`. No functional changes — this is purely a dependency guard until the upstream connector is ported to the 2.x API.
 - **v0.1.0** — initial release on PyPI. 14 tools (via mcp-salesforce-connector 0.1.15). Chrome-only, macOS-only, per-call `sid` refresh.
+
+## Contributing
+
+This project is maintained by Kugamon. Outside pull requests aren't accepted, but issues are welcome: if sign-in or a tool fails, open an [issue](https://github.com/kugamon/salesforce-mcp-auto-auth-chrome/issues) with your macOS and Chrome versions and the error from the log (never paste session cookies or tokens).
+
+The MIT license lets you fork and adapt it for your own use.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
